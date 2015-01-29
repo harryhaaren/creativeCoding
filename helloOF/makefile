@@ -1,6 +1,6 @@
 
 all:
-	g++ -I../ main.cpp ofApp.cpp -o test
+	g++ -I../ main.cpp ofApp.cpp -o helloOF
 
 run:
-	./test
+	./helloOF
