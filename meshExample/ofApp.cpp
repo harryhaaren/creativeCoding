@@ -2,10 +2,13 @@
 
 void ofApp::changeColors()
 {
+  // for each mesh
   for( int m = 0; m < meshes.size(); m++ )
   {
+    // for each vertex
     for(int i = 0; i < meshes.at(m).getVertices().size(); i++ )
     {
+      // change the color to a random one
       float r = ofRandomuf();
       float g = ofRandomuf();
       float b = ofRandomuf();
@@ -17,13 +20,21 @@ void ofApp::changeColors()
 //--------------------------------------------------------------
 void ofApp::setup()
 {
+  // set background
+  ofBackground(0);
+  glEnable(GL_DEPTH_TEST);
+  
+  // set default values for variables in the header file
+  mode = 0;
   drawing = 0;
   
+  // add meshes to the vector
   meshes.push_back( ofMesh::cone(100.0, 200.0)     );
-  meshes.push_back( ofMesh::cylinder(300.0, 200.0) );
+  meshes.push_back( ofMesh::cylinder(100.0, 200.0) );
   meshes.push_back( ofMesh::icosphere( 130, 2)     );
   meshes.push_back( ofMesh::box( 170, 170, 0)      );
   
+  // set initial colour values
   for( int m = 0; m < meshes.size(); m++ )
   {
     for(int i = 0; i < meshes.at(m).getVertices().size(); i++ )
@@ -35,69 +46,78 @@ void ofApp::setup()
     }
   }
   
-  
-  ofBackground(0);
-  glEnable(GL_DEPTH_TEST);
-  
 }
 
 //--------------------------------------------------------------
 void ofApp::update()
 {
-  
-  /*
-  
-  for(int i = 0; i < meshes.at(drawing).getVertices().size(); i++ )
-  {
-    float r = ofRandomuf();
-    float g = ofRandomuf();
-    float b = ofRandomuf();
-    meshes.at(drawing).addColor( i, ofFloatColor( r, g, b ) );
-    
-    //float n = 1.234;
-    //n = ofNoise( n );
-    //meshes.at(drawing).setColor( i, ofFloatColor( n, 1-n, n*n ) );
-  }
-  */
-  
 }
 
 //--------------------------------------------------------------
-void ofApp::draw(){
+void ofApp::draw()
+{
   
   camera.begin();
   
-  int frame = ofGetFrameNum() % 400;
   
-  if( mode == 0 )
-  {
-    meshes.at(drawing).drawFaces();
-  }
-  else if( mode == 1 )
-  {
-    meshes.at(drawing).drawVertices();
-  }
-  else if(  mode == 2 )
-  {
-    meshes.at(drawing).drawWireframe();
-  }
-  else
-  {
-    meshes.at(drawing).draw();
-  }
+  /// note that ofPushMatrix() saves the current "view"
+  ofPushMatrix();
+    /// move 200 to the left, and draw a wireframe
+    ofTranslate( -200, 0, 0 );
+    meshes.at(0).drawWireframe();
+  /// restore the previous view
+  ofPopMatrix();
+  
+  
+  /// push a new "view", rotate, draw it, and pop the view
+  ofPushMatrix();
+    
+    ofRotate( 360 * ofGetMouseY() / (float(ofGetHeight())), 1, 0, 0 );
+    
+    ofTranslate( 200, 0, 0 );
+    
+    if( mode == 0 )
+    {
+      meshes.at(drawing).drawFaces();
+    }
+    else if( mode == 1 )
+    {
+      meshes.at(drawing).drawVertices();
+    }
+    else if(  mode == 2 )
+    {
+      meshes.at(drawing).drawWireframe();
+    }
+    else
+    {
+      meshes.at(drawing).draw();
+    }
+  
+  ofPopMatrix();
   
   camera.end();
 }
 
 //--------------------------------------------------------------
-void ofApp::keyPressed(int key){
+void ofApp::keyPressed(int key)
+{
+  // space changes colour
   if( key == ' ' )
+  {
     changeColors();
+  }
+  // m changes the mode
   else if( key == 'm' )
-    mode = (++mode) % 4 ;
+  {
+    mode++;
+    mode = mode % 4 ;
+  }
   else
+  {
+    // any other key changes the mesh to be drawn
     drawing += 1;
     drawing = drawing % 4;
+  }
 }
 
 //--------------------------------------------------------------
