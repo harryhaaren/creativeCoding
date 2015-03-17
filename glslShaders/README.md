@@ -1,5 +1,8 @@
 GLSL Shaders
 ============
+
+![screenshot](https://raw.githubusercontent.com/harryhaaren/creativeCoding/master/glslShaders/output.png "GLSL Shader Screenshot")
+
 ```
 NOTICE: The "of.frag" and "of.vert" files MUST be moved to /bin/data of your
 OpenFrameworks app, this demo will NOT work without those files in place!
@@ -21,6 +24,7 @@ Inspiration
 As OpenGL has a web runtime called WebGL, it is possible to run shaders in a 
 web browser. Checkout the [http://glslsandbox.com](http://glslsandbox.com) site,
 they have some nice examples, and the code can be edited in the window:
+[http://glslsandbox.com/e#21297.3](http://glslsandbox.com/e#21297.3)
 [http://glslsandbox.com/e#22728.0](http://glslsandbox.com/e#22728.0)
 [http://glslsandbox.com/e#23607.0](http://glslsandbox.com/e#23607.0).
 
