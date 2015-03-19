@@ -1,8 +1,5 @@
 GLSL Shaders
 ============
-
-![screenshot](https://raw.githubusercontent.com/harryhaaren/creativeCoding/master/glslShaders/output.png "GLSL Shader Screenshot")
-
 ```
 NOTICE: The "of.frag" and "of.vert" files MUST be moved to /bin/data of your
 OpenFrameworks app, this demo will NOT work without those files in place!
@@ -11,6 +8,9 @@ OpenFrameworks app, this demo will NOT work without those files in place!
 GLSL shaders are a hugely powerful tool to render pixels on the graphics card.
 The algorithm to generate the colours is placed in a special file, which is
 compiled by OpenGL when the shader is loaded for the first time.
+
+There are different versions GL shaders - OpenFrameworks lets us ask if the
+graphics card supports GL3 or above with the `ofGetGLProgrammableRenderer()` function.
 
 There are different types of shaders: in this tutorial we focus only on 
 `fragment` shaders, which affect colour. 
@@ -24,7 +24,6 @@ Inspiration
 As OpenGL has a web runtime called WebGL, it is possible to run shaders in a 
 web browser. Checkout the [http://glslsandbox.com](http://glslsandbox.com) site,
 they have some nice examples, and the code can be edited in the window:
-[http://glslsandbox.com/e#21297.3](http://glslsandbox.com/e#21297.3)
 [http://glslsandbox.com/e#22728.0](http://glslsandbox.com/e#22728.0)
 [http://glslsandbox.com/e#23607.0](http://glslsandbox.com/e#23607.0).
 

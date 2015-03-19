@@ -5,8 +5,22 @@ void ofApp::setup()
 {
   ofBackground( 33,33,33 );
   
-  // load the "of.frag" and "of.vert" shader
-  shader.load("of");
+  // there are different versions of GL shaders, modern computers will have
+  // GL3 or greater. openFrameworks lets us ask the graphics card if it supports
+  // GL3 by calling  ofGetGLProgrammableRenderer()
+  if(ofGetGLProgrammableRenderer())
+  {
+    // works with GL3 and up
+    cout << "Using GL3 or up version of GLSL shader" << endl;
+    shader.load("of_gl3.vert", "of_gl3.frag");
+  }
+  else
+  {
+    // works on GL2
+    cout << "Using GL2 or below version of GLSL shader" << endl;
+    shader.load("of.vert", "of.frag");
+  }
+  
   
   // add vertexs
   float s = 20;
